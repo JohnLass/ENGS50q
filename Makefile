@@ -1,11 +1,18 @@
 CFLAGS=-Wall -pedantic -std=c11 -g
 
-all:	listtest1 
+all:	first_queue.test mkemptyq.test 
 
-listtest1.o:	listtest1.c list.h listfun.h
-							gcc $(CFLAGS) -c listtest1.c
+first_queue.test.o:	first_queue.test.c queue.h
+										gcc $(CFLAGS) -c first_queue.test.c
 
-listtest1:	listtest1.o	list.o listfun.o
-						gcc $(CFLAGS) list.o listfun.o listtest1.o -o listtest1	
+mkemptyq.test.o:	mkemptyq.test.c queue.h
+									gcc $(CFLAGS) -c mkemptyq.test.c
+
+first_queue.test:	first_queue.test.o	queue.o 
+									gcc $(CFLAGS) queue.o first_queue.test.o -o first_queue.test	
+
+mkemptyq.test:	mkemptyq.test.o	queue.o 
+								gcc $(CFLAGS) queue.o mkemptyq.test.o -o mkemptyq.test	
+
 clean:
-				rm -f *.o listtest1
+				rm -f *.o 
