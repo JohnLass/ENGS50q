@@ -9,15 +9,21 @@
  * types
  */
 
-queue_t *front=NULL;
-queue_t *back=NULL;
+// queue_t *front=NULL;
+// queue_t *back=NULL;
+#include "queue.h"
+
+
+typedef void queue {
+	struct queue *next;
+} queue_t;
 
 
 queue_t* qopen(void) {
-
-	
-
-
+	queue_t* front=(queue_t*) malloc(sizeof(queue_t));
+	front=>next=NULL;
+	return(front);
+}
 
 void qclose(queue_t *qp);
 

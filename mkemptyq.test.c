@@ -25,8 +25,8 @@ int main(void) {
 		exit(EXIT_FAILURE);
 
 	}else{
-
 		exit(EXIT_SUCCESS)
 
 			}
+}
 	
