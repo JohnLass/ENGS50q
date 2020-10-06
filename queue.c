@@ -13,6 +13,7 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 
 typedef struct ll {
     void *data;
@@ -55,10 +56,55 @@ void qclose(queue_t *qp){
 }
 
 
-int32_t qput(queue_t *qp, void *elementp);
+int32_t qput(queue_t *qp, void *elementp){
+	int32_t rtrn = 1;
+	ll_t* ob = NULL;
+	if(qp!=NULL){
+		if(elementp!=NULL){
+			 //if both arguments are valid, need to cast the qp and allocate space for new node
+			 rq_t *ptr = (rq_t*)qp;
+			 ll_t *newp = (ll_t*) malloc(sizeof(ll_t));
+			 newp->data = elementp;
+			 //if it isnt the first thing reassign the back thing in list to point to new one and reassign back pointer
+			 if(ptr->front != NULL){
+				 ob = ptr->back;
+				 ob->next = newp;
+				 ptr->back = newp;
+			 }else{
+				 //set front and back to new thing
+				 ptr->front = newp;
+				 ptr->back = newp;			 
+			 }
+			 rtrn = 0;
+		}
+	}
+	return rtrn;
+}
 
 
-void* qget(queue_t *qp);
+
+
+
+void* qget(queue_t *qp){
+	void *rtrn = NULL;
+
+	if(qp!=NULL){
+		rq_t *ptr = (rq_t *) qp;
+		if(ptr->front != NULL){
+			ll_t *hold = NULL;
+			hold = ptr->front;
+			ptr->front = hold->next;
+			rtrn = hold->data;
+			free(hold);
+		}else{
+			printf("line is empty, bud\n");
+
+		}
+	}
+	
+	return rtrn;
+}
+
 
 
 
