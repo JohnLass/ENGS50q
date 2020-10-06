@@ -34,8 +34,8 @@ int main(void){
 	
 	//print_node(testp);
 	
-	free(first_item);
-	// qclose(newq);
-	free(newq);
+	free(testp);
+	qclose(newq);
+	//free(newq);
 	exit(EXIT_SUCCESS);
 }

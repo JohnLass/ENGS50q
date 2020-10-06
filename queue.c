@@ -58,7 +58,7 @@ void qclose(queue_t *qp){
 
 int32_t qput(queue_t *qp, void *elementp){
 	int32_t rtrn = 1;
-	ll_t* ob = NULL;
+
 	if(qp!=NULL){
 		if(elementp!=NULL){
 			 //if both arguments are valid, need to cast the qp and allocate space for new node
@@ -67,8 +67,7 @@ int32_t qput(queue_t *qp, void *elementp){
 			 newp->data = elementp;
 			 //if it isnt the first thing reassign the back thing in list to point to new one and reassign back pointer
 			 if(ptr->front != NULL){
-				 ob = ptr->back;
-				 ob->next = newp;
+				 ptr->back->next = newp;
 				 ptr->back = newp;
 			 }else{
 				 //set front and back to new thing
