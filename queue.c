@@ -26,22 +26,32 @@ typedef struct rq {
 
 
 queue_t* qopen(void) {
-	ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
+	// ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
 	rq_t* ptr=(rq_t*)malloc(sizeof(rq_t));
 
 	// fptr=NULL;
-	ptr->front=fptr;
-	ptr->back=fptr;
+	ptr->front=NULL;
+	ptr->back=NULL;
 	return((queue_t*)ptr);
 }
 
 void qclose(queue_t *qp){
-	rq_t *ptr=(rq_t*)qp;
-	ll_t *incp;
-	for(incp=ptr->front; incp!=NULL; incp=incp->next){
-		free(incp);
+	ll_t *hold=NULL;
+	if(qp!=NULL){
+		rq_t *ptr=(rq_t*)qp;
+		if(ptr->front!=NULL){
+			ll_t *incp;
+			for(incp=ptr->front; incp!=NULL;){
+				if(incp->data!=NULL){
+					free(incp->data);
+				}
+				hold=incp->next;
+				free(incp);
+				incp=hold;
+			}
+		}
+		free(ptr);
 	}
-	free(ptr);
 }
 
 
