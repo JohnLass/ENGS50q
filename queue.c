@@ -9,28 +9,43 @@
  * types
  */
 
-// queue_t *front=NULL;
-// queue_t *back=NULL;
 #include "queue.h"
+#include "list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct ll {
+    void *data;
+	struct ll *next;
+} ll_t;
 
-typedef void queue {
-	struct queue *next;
-} queue_t;
+typedef struct rq {
+	struct ll *front;
+	struct ll *back;
+} rq_t;
 
 
 queue_t* qopen(void) {
-	queue_t* front=(queue_t*) malloc(sizeof(queue_t));
-	front=>next=NULL;
-	return(front);
+	ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
+	rq_t* ptr=(rq_t*)malloc(sizeof(rq_t));
+
+	// fptr=NULL;
+	ptr->front=fptr;
+	ptr->back=fptr;
+	return((queue_t*)ptr);
 }
 
-void qclose(queue_t *qp);
-
+void qclose(queue_t *qp){
+	rq_t *ptr=(rq_t*)qp;
+	ll_t *incp;
+	for(incp=ptr->front; incp!=NULL; incp=incp->next){
+		free(incp);
+	}
+	free(ptr);
+}
 
 
 int32_t qput(queue_t *qp, void *elementp);
-
 
 
 void* qget(queue_t *qp);

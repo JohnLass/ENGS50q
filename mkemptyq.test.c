@@ -9,24 +9,21 @@
  * 
  */
 
+#include "queue.h"
+#include "list.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 
 int main(void) {
 
 	queue_t *newqp=NULL;
-	queue_t *new1qp=NULL;
-	queue_t *new2qp=NULL;
-
 	newqp=qopen();
-	new1qp=qopen();
-	new2qp=qopen();
 
-	if(newqp==NULL || new1qp==NULL || new2qp==NULL){
-
-		exit(EXIT_FAILURE);
-
-	}else{
-		exit(EXIT_SUCCESS)
-
-			}
+	if(newqp==NULL){
+		exit(EXIT_FAILURE); 
+	}
+	qclose(newqp);
+	exit(EXIT_SUCCESS);
 }
 	
