@@ -24,8 +24,8 @@ typedef struct rq {
 	struct ll *front;
 	struct ll *back;
 } rq_t;
-/*
-static void debugq(rq_t *cp){
+
+void debugq(queue_t *cp){
 	if(cp!=NULL){
 		printf("Queue has been created\n");
 		rq_t *ptr = (rq_t*)cp;
@@ -46,9 +46,11 @@ static void debugq(rq_t *cp){
 		}
 		
 	}
-	
+	else{
+		printf("This should point to nil %p\n", cp);
+	}
 }
-*/
+
 queue_t* qopen(void) {
 	// ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
 	rq_t* ptr=(rq_t*)malloc(sizeof(rq_t));
@@ -62,6 +64,7 @@ queue_t* qopen(void) {
 
 void qclose(queue_t *qp){
 	ll_t *hold=NULL;
+	
 	if(qp!=NULL){
 		rq_t *ptr=(rq_t*)qp;
 		if(ptr->front!=NULL){
@@ -72,15 +75,19 @@ void qclose(queue_t *qp){
 					free(incp->data);
 				}
 				hold=incp->next;
+				incp = NULL;
+				//printf("This is incp %p\n", (void*)incp);
 				free(incp);
 				incp = hold;
+				
 				//	debugq((queue_t*)ptr);
-				//			printf("here\n");
 			}
 		}
-		//debugq((queue_t*)ptr);
+		//	debugq((queue_t*)ptr);
 		//ptr->front = NULL;
 		//ptr->back = NULL;
+		ptr = NULL;
+		//debugq((queue_t*)ptr);
 		free(ptr);
 		//	debugq((queue_t*)ptr);
 	}
@@ -126,15 +133,19 @@ void* qget(queue_t *qp){
 		if(ptr->front != NULL){
 			ll_t *hold = NULL;
 			hold = ptr->front;
-			ptr->front = hold->next;
-			if(ptr->front == NULL)
+			
+
+			if(ptr->front == ptr->back)
 				ptr->back = NULL;
+
+			ptr->front = hold->next;
 			rtrn = hold->data;
 			free(hold);
-			//debugq((queue_t*) ptr);
+
 		}else{
 			printf("queue is empty\n");
 		}
+
 	}
 	
 	return rtrn;
@@ -144,13 +155,14 @@ void* qget(queue_t *qp){
 
 
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
+	/*
 	if(qp!=NULL){
 		rq_t *ptr = (rq_t *) qp;
 		ll_t *front = NULL;
 		for(incp=ptr->front; incp!=NULL; incp=incp->next){
 			fn(incp);
 		}
-	}
+		}*/
 }
 
 

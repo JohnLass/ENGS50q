@@ -26,21 +26,23 @@ int main(void){
 	//	car_t *p2 = makecar("the",55,55);
 
 		qput(newq,p1);
-		//	qput(newq,p2);
-		//p1 = qget(newq);
-#if 0	
-	if(!checkcar(p,"keystone",40.4,595)){
+		//		qput(newq,p2);
+			p1 = qget(newq);
+
+	if(!checkcar(p1,"keystone",40.4,595)){
 		printf("Failure\n");
 		exit(EXIT_FAILURE);
 	}	
 	//print_node(testp);
-	*/
-	qclose(newq);
+	
+	//	qclose(newq);
 	//	free(p);
-	//free(newq);
-#endif
 	free(p1);
 	//free(p2);
-	qclose(newq);
+		free(newq);
+
+
+	//free(p2);
+	//qclose(newq);
 	exit(EXIT_SUCCESS);
 }

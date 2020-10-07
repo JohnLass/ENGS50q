@@ -51,3 +51,4 @@ void* qremove(queue_t *qp,
  */
 void qconcat(queue_t *q1p, queue_t *q2p);
 
+void debugq(queue_t *cp);
