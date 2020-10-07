@@ -67,10 +67,12 @@ void qclose(queue_t *qp){
 	
 	if(qp!=NULL){
 		rq_t *ptr=(rq_t*)qp;
+		//debugq((queue_t*) ptr);
+		//printf("This is ptr's front %p\n", (void*) ptr->front);
 		if(ptr->front!=NULL){
-			ll_t *incp;
+			//ll_t *incp;
 			//debugq((queue_t*) ptr);
-			for(incp=ptr->front; incp!=NULL;){
+			/*for(incp=ptr->front; incp!=NULL;){
 				if(incp->data!=NULL){
 					free(incp->data);
 				}
@@ -81,12 +83,21 @@ void qclose(queue_t *qp){
 				incp = hold;
 				
 				//	debugq((queue_t*)ptr);
-			}
+				}*/
+			do{
+				if(ptr->front->data!=NULL){
+					free(ptr->front->data);
+				}
+				hold = ptr->front;
+				ptr->front = hold->next;
+				free(hold);
+				
+			}	while(ptr->front != NULL);
 		}
 		//	debugq((queue_t*)ptr);
 		//ptr->front = NULL;
 		//ptr->back = NULL;
-		ptr = NULL;
+		//ptr = NULL;
 		//debugq((queue_t*)ptr);
 		free(ptr);
 		//	debugq((queue_t*)ptr);
@@ -105,6 +116,7 @@ int32_t qput(queue_t *qp, void *elementp){
 			 if( (newp = (ll_t*) malloc(sizeof(ll_t))) == NULL)
 				 return rtrn;
 			 newp->data = elementp;
+			 newp->next = NULL;
 			 //if it isnt the first thing reassign the back thing in list to point to new one and reassign back pointer
 			 if(ptr->front != NULL){
 				 ptr->back->next = newp;

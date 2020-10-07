@@ -23,11 +23,12 @@ int main(void){
 	newq = qopen();
 	
 	car_t *p1 = makecar("keystone",40.4,595);
-	//	car_t *p2 = makecar("the",55,55);
+	//	car_t *p2;
 
-		qput(newq,p1);
-		//		qput(newq,p2);
-			p1 = qget(newq);
+	qput(newq,p1);
+	
+	//		qput(newq,p2);
+	//p2 = qget(newq);
 
 	if(!checkcar(p1,"keystone",40.4,595)){
 		printf("Failure\n");
@@ -37,12 +38,14 @@ int main(void){
 	
 	//	qclose(newq);
 	//	free(p);
-	free(p1);
+	
 	//free(p2);
-		free(newq);
+	//		free(newq);
 
 
 	//free(p2);
-	//qclose(newq);
+	qclose(newq);
+	//	free(p1);
+
 	exit(EXIT_SUCCESS);
 }
