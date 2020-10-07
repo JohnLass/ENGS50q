@@ -143,7 +143,15 @@ void* qget(queue_t *qp){
 
 
 
-void qapply(queue_t *qp, void (*fn)(void* elementp));
+void qapply(queue_t *qp, void (*fn)(void* elementp)){
+	if(qp!=NULL){
+		rq_t *ptr = (rq_t *) qp;
+		ll_t *front = NULL;
+		for(incp=ptr->front; incp!=NULL; incp=incp->next){
+			fn(incp);
+		}
+	}
+}
 
 
 
