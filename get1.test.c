@@ -17,10 +17,12 @@
 
 
 int main(void){
-	queue_t *q1;
-	car_t *testp;
-
+	queue_t *q1, *q2;
+	car_t *testp, *testp2;
+	
 	q1 = qopen();
+	q2 = NULL;
+	
 	testp = qget(q1);
 
 	if(testp != NULL){
@@ -29,6 +31,15 @@ int main(void){
 	}	
 	
 	qclose(q1);
+
+	testp2 = qget(q2);
+	
+	if(testp2 != NULL){
+		printf("Failure\n");
+		exit(EXIT_FAILURE);
+	}	
+
+	qclose(q2);
 	
 	exit(EXIT_SUCCESS);
 }

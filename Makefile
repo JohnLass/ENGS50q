@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -g
 
-all: mkemptyq.test first_queue.test queue_put.test put1.test put2.test debugq.test mult.test get1.test
+all: mkemptyq.test first_queue.test queue_put.test put1.test put2.test debugq.test mult.test get1.test put3.test mult2.test
 
 
 mkemptyq.test.o:	mkemptyq.test.c queue.h
@@ -8,7 +8,7 @@ mkemptyq.test.o:	mkemptyq.test.c queue.h
 
 
 first_queue.test.o:	first_queue.test.c queue.h list.h listfun.h
-									gcc $(CFLAGS) -c first_queue.test.c
+										gcc $(CFLAGS) -c first_queue.test.c
 
 queue_put.test.o:	queue_put.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c queue_put.test.c
@@ -19,17 +19,23 @@ put1.test.o:			put1.test.c queue.h
 put2.test.o:			put2.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c put2.test.c
 
+put3.test.o:			put3.test.c queue.h list.h listfun.h
+									gcc $(CFLAGS) -c put3.test.c
+
 get1.test.o:			get1.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c get1.test.c
 
 debugq.test.o:		debugq.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c debugq.test.c
 
-mult.test.o:		mult.test.c queue.h list.h listfun.h
+mult.test.o:			mult.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c mult.test.c
 
-mkemptyq.test:	mkemptyq.test.o	queue.o 
-								gcc $(CFLAGS) queue.o mkemptyq.test.o -o mkemptyq.test	
+mult2.test.o:			mult2.test.c queue.h list.h listfun.h
+									gcc $(CFLAGS) -c mult2.test.c
+
+mkemptyq.test:		mkemptyq.test.o	queue.o 
+									gcc $(CFLAGS) queue.o mkemptyq.test.o -o mkemptyq.test	
 
 first_queue.test:	first_queue.test.o	queue.o list.o listfun.o
 									gcc $(CFLAGS) queue.o list.o listfun.o first_queue.test.o -o first_queue.test	
@@ -37,11 +43,14 @@ first_queue.test:	first_queue.test.o	queue.o list.o listfun.o
 queue_put.test:		queue_put.test.o	queue.o list.o listfun.o
 									gcc $(CFLAGS) queue.o list.o listfun.o queue_put.test.o -o queue_put.test
 
-put1.test:		put1.test.o	queue.o list.o listfun.o
-							gcc $(CFLAGS) queue.o list.o listfun.o put1.test.o -o put1.test
+put1.test:				put1.test.o	queue.o list.o listfun.o
+									gcc $(CFLAGS) queue.o list.o listfun.o put1.test.o -o put1.test
 
 put2.test:		put2.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o put2.test.o -o put2.test
+
+put3.test:		put3.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o put3.test.o -o put3.test
 
 get1.test:		get1.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o get1.test.o -o get1.test
@@ -52,5 +61,8 @@ debugq.test:		debugq.test.o	queue.o list.o listfun.o
 mult.test:		mult.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o mult.test.o -o mult.test
 
+mult2.test:		mult2.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o mult2.test.o -o mult2.test
+
 clean:
-				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test
+				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test mult2.test put3.test
