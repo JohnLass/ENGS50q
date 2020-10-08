@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -g
 
-all: mkemptyq.test first_queue.test queue_put.test put1.test debugq.test
+all: mkemptyq.test first_queue.test queue_put.test put1.test debugq.test mult.test
 
 
 mkemptyq.test.o:	mkemptyq.test.c queue.h
@@ -19,6 +19,9 @@ put1.test.o:			put1.test.c queue.h
 debugq.test.o:		debugq.test.c queue.h list.h listfun.h
 									gcc $(CFLAGS) -c debugq.test.c
 
+mult.test.o:		mult.test.c queue.h list.h listfun.h
+									gcc $(CFLAGS) -c mult.test.c
+
 mkemptyq.test:	mkemptyq.test.o	queue.o 
 								gcc $(CFLAGS) queue.o mkemptyq.test.o -o mkemptyq.test	
 
@@ -34,5 +37,8 @@ put1.test:		put1.test.o	queue.o
 debugq.test:		debugq.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o debugq.test.o -o debugq.test
 
+mult.test:		mult.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o mult.test.o -o mult.test
+
 clean:
-				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test
+				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test

@@ -41,9 +41,9 @@ int main(void){
 	}
 
 	
-	free(first_item);
-	free(second_item);
-	// qclose(newq);
-	free(newq);
+	//free(first_item);
+	//	free(second_item);
+	 qclose(newq);
+	//free(newq);
 	exit(EXIT_SUCCESS);
 }

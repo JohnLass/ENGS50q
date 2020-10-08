@@ -152,6 +152,8 @@ void* qget(queue_t *qp){
 
 			ptr->front = hold->next;
 			rtrn = hold->data;
+
+
 			free(hold);
 
 		}else{
