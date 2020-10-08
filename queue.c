@@ -190,5 +190,18 @@ void* qremove(queue_t *qp,
 							const void* skeyp);
 
 
-
-void qconcat(queue_t *q1p, queue_t *q2p);
+/*combines q2 into the end of q1, then frees q2*/
+void qconcat(queue_t *q1p, queue_t *q2p){
+	if(q1p != NULL && q2p != NULL){
+		rq_t *ptr1 = (rq_t *) q1p;
+		rq_t *ptr2 = (rq_t *) q2p;
+		if(ptr2->back != NULL){
+			ptr1->back->next = ptr2->front;
+		}else{
+			printf("Second queue is empty!\n");
+		}
+		free(ptr2);
+	}else{
+		printf("Passed null pointer!\n");
+	}
+}
