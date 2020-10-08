@@ -1,11 +1,11 @@
-/* mkemptyq.test.c --- 
+/* mkemptyq.test.c --- tests open and close without any puts
  * 
  * 
  * Author: John J. Lass
  * Created: Sun Oct  4 20:59:09 2020 (-0400)
  * Version: 
  * 
- * Description: Test file for the create new queue function
+ * Description: Opens a queue, checks to make sure it is not null and then closes it
  * 
  */
 

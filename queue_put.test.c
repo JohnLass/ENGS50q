@@ -5,7 +5,7 @@
  * Created: Tue Oct  6 02:19:32 2020 (-0400)
  * Version: 
  * 
- * Description: puts two things in a que and sees if it works and will get them in the right order
+ * Description: puts two things in a queue and gets both of them then closes
  * 
  */
 #include <stdio.h>
@@ -33,6 +33,7 @@ int main(void){
 		exit(EXIT_FAILURE);
 	}
 	
+	free(testp);
 	testp = qget(newq);
 
 	if(!checkcar(testp,"etna",50,40)){
@@ -40,10 +41,8 @@ int main(void){
 		exit(EXIT_FAILURE);
 	}
 
-	
-	//free(first_item);
-	//	free(second_item);
-	 qclose(newq);
-	//free(newq);
+	free(testp);
+	qclose(newq);
+	 
 	exit(EXIT_SUCCESS);
 }

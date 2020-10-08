@@ -5,7 +5,7 @@
  * Created: Wed Oct  7 19:48:10 2020 (-0400)
  * Version: 
  * 
- * Description: opens two queues puts to both twice, gets from both, gets from another closes both
+ * Description: opens two queues puts to both twice, gets twice from queue 1, gets once from queue 2 closes both
  * 
  */
 

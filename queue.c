@@ -25,6 +25,7 @@ typedef struct rq {
 	struct ll *back;
 } rq_t;
 
+/*prints the queue*/
 void debugq(queue_t *cp){
 	if(cp!=NULL){
 		printf("Queue has been created\n");
@@ -51,6 +52,8 @@ void debugq(queue_t *cp){
 	}
 }
 
+
+/*creates an empty queue,allocates space for a queue, returns the queue in a pointer to a queue_t*/
 queue_t* qopen(void) {
 	// ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
 	rq_t* ptr=(rq_t*)malloc(sizeof(rq_t));
@@ -62,28 +65,16 @@ queue_t* qopen(void) {
 	return((queue_t*)ptr);
 }
 
+/*Deallocates a queue, frees everything in it */
 void qclose(queue_t *qp){
 	ll_t *hold=NULL;
 	
 	if(qp!=NULL){
 		rq_t *ptr=(rq_t*)qp;
-		//debugq((queue_t*) ptr);
-		//printf("This is ptr's front %p\n", (void*) ptr->front);
+
+		//if there is something in the queue
 		if(ptr->front!=NULL){
-			//ll_t *incp;
-			//debugq((queue_t*) ptr);
-			/*for(incp=ptr->front; incp!=NULL;){
-				if(incp->data!=NULL){
-					free(incp->data);
-				}
-				hold=incp->next;
-				incp = NULL;
-				//printf("This is incp %p\n", (void*)incp);
-				free(incp);
-				incp = hold;
-				
-				//	debugq((queue_t*)ptr);
-				}*/
+			//loop through the queue, deallocating the memory in each node and the node itself
 			do{
 				if(ptr->front->data!=NULL){
 					free(ptr->front->data);
@@ -93,18 +84,16 @@ void qclose(queue_t *qp){
 				free(hold);
 				
 			}	while(ptr->front != NULL);
-		}
-		//	debugq((queue_t*)ptr);
-		//ptr->front = NULL;
-		//ptr->back = NULL;
-		//ptr = NULL;
-		//debugq((queue_t*)ptr);
+		}	
+		//free the queue itself
 		free(ptr);
-		//	debugq((queue_t*)ptr);
+	
 	}
 }
 
-
+/*Put element at the end of the queue
+return 0 if successful, nonzero otherwise
+allocate space in queue for new item*/
 int32_t qput(queue_t *qp, void *elementp){
 	int32_t rtrn = 1;
 
@@ -129,14 +118,14 @@ int32_t qput(queue_t *qp, void *elementp){
 			 rtrn = 0;
 		}
 	}
-	//debugq(qp);
+	
 	return rtrn;
 }
 
 
 
 
-
+/*get the first element from the queue, remove it from the queue, free memory to its spot in the queue but not the actual data*/
 void* qget(queue_t *qp){
 	void *rtrn = NULL;
 
@@ -167,7 +156,7 @@ void* qget(queue_t *qp){
 
 
 
-
+/*apply a function to every element in the queue*/
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
 	/*
 	if(qp!=NULL){
