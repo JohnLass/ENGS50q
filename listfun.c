@@ -24,15 +24,16 @@ car_t *makecar(char *platep,double price,int year) {
 	 return cp;
  }
 
-void print_node(car_t *cp){
-	if(cp == NULL){
+void print_node(void *vp){
+	if(vp == NULL){
 		printf("passed a null pointer\n");
 	}else{
+		car_t *cp = (car_t *) vp;
 		printf("The car's licence plate is: %s\n", cp->plate);
 		printf("The car's price is: %lf\n", cp->price);
 		printf("The car's year is: %d\n", cp->year);
 	}
-	return;
+
 }
 
 void make_list(void){
