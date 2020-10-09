@@ -42,3 +42,5 @@ void print_node(void *vp);
 void make_list(void);
 
 bool checkcar(car_t *cp, char *platep, double price, int year);
+
+bool searchfn (void* elementp, const void* keyp);

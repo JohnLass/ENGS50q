@@ -147,16 +147,32 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 			printf("Queue is empty!\n");	
 		}
 	}
-	else{
+		else{
 		printf("Queue does not exist!\n");
 	}
 }
 
 
 
-void* qsearch(queue_t *qp, 
-							bool (*searchfn)(void* elementp,const void* keyp),
-							const void* skeyp);
+void* qsearch(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
+	rq_t *ptr=(rq_t*)qp;
+	ll_t *incp;
+	bool flag;
+	if(ptr->front!=NULL){
+		for(incp=ptr->front;incp!=NULL;incp=incp->next){
+			flag = searchfn(incp->data,skeyp);
+			printf("Loop\n");
+			if(flag==true){
+				printf("Element Found!\n");
+				return incp;
+			}
+		}
+	}
+	if(ptr->front==NULL)
+		printf("Empty List");
+	printf("Element Not Found.\n");
+	return NULL;
+}
 
 
 

@@ -57,3 +57,11 @@ bool checkcar(car_t *cp, char *platep, double price, int year){
 }
 
 	
+bool searchfn (void* elementp, const void* keyp) {
+	int ret;
+	if(elementp!=NULL)
+		ret = strcmp(elementp,keyp);
+	if(ret!=0)
+		return false;
+	return true;
+}

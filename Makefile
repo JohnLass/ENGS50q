@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -g
 
-all: mkemptyq.test first_queue.test queue_put.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test
+all: mkemptyq.test first_queue.test queue_put.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test
 
 %.o:  %.test.c listfun.h list.h queue.h
 			gcc $(CFLAGS) -c $<  
@@ -33,14 +33,20 @@ mult2.test:		mult2.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o mult2.test.o -o mult2.test
 
 apply1.test:	apply1.test.o	queue.o list.o listfun.o
-							gcc $(CFLAGS) queue.o list.o listfun.o mult2.test.o -o apply1.test
+							gcc $(CFLAGS) queue.o list.o listfun.o apply1.test.o -o apply1.test
 
 apply2.test:		apply2.test.o	queue.o list.o listfun.o
-							gcc $(CFLAGS) queue.o list.o listfun.o mult2.test.o -o apply2.test
+							gcc $(CFLAGS) queue.o list.o listfun.o apply2.test.o -o apply2.test
+
+qsearch1.test:	qsearch1.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o qsearch1.test.o -o qsearch1.test
+
+qsearch2.test:	qsearch2.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o qsearch2.test.o -o qsearch2.test
 
 
 
 clean:
-				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test
+				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test
 
 
