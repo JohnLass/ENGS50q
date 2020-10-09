@@ -16,7 +16,7 @@
 #include <inttypes.h>
 
 typedef struct ll {
-    void *data;
+	void *data;
 	struct ll *next;
 } ll_t;
 
@@ -43,9 +43,7 @@ void debugq(queue_t *cp){
 					printf("Node's data is empty\n");
 				}
 			}
-			
 		}
-		
 	}
 	else{
 		printf("This should point to nil %p\n", cp);
@@ -55,23 +53,17 @@ void debugq(queue_t *cp){
 
 /*creates an empty queue,allocates space for a queue, returns the queue in a pointer to a queue_t*/
 queue_t* qopen(void) {
-	// ll_t* fptr=(ll_t*)malloc(sizeof(ll_t));
 	rq_t* ptr=(rq_t*)malloc(sizeof(rq_t));
-
-	// fptr=NULL;
 	ptr->front=NULL;
 	ptr->back=NULL;
-	//	debugq((queue_t*)ptr);
 	return((queue_t*)ptr);
 }
 
 /*Deallocates a queue, frees everything in it */
 void qclose(queue_t *qp){
 	ll_t *hold=NULL;
-	
 	if(qp!=NULL){
 		rq_t *ptr=(rq_t*)qp;
-
 		//if there is something in the queue
 		if(ptr->front!=NULL){
 			//loop through the queue, deallocating the memory in each node and the node itself
@@ -82,12 +74,10 @@ void qclose(queue_t *qp){
 				hold = ptr->front;
 				ptr->front = hold->next;
 				free(hold);
-				
 			}	while(ptr->front != NULL);
 		}	
 		//free the queue itself
 		free(ptr);
-	
 	}
 }
 
@@ -96,69 +86,55 @@ return 0 if successful, nonzero otherwise
 allocate space in queue for new item*/
 int32_t qput(queue_t *qp, void *elementp){
 	int32_t rtrn = 1;
-
+	
 	if(qp!=NULL){
 		if(elementp!=NULL){
-			 //if both arguments are valid, need to cast the qp and allocate space for new node
-			 rq_t *ptr = (rq_t*)qp;
-			 ll_t *newp;
-			 if( (newp = (ll_t*) malloc(sizeof(ll_t))) == NULL)
-				 return rtrn;
-			 newp->data = elementp;
-			 newp->next = NULL;
-			 //if it isnt the first thing reassign the back thing in list to point to new one and reassign back pointer
-			 if(ptr->front != NULL){
-				 ptr->back->next = newp;
-				 ptr->back = newp;
-			 }else{
-				 //set front and back to new thing
-				 ptr->front = newp;
-				 ptr->back = newp;			 
-			 }
-			 rtrn = 0;
+			//if both arguments are valid, need to cast the qp and allocate space for new node
+			rq_t *ptr = (rq_t*)qp;
+			ll_t *newp;
+			if( (newp = (ll_t*) malloc(sizeof(ll_t))) == NULL)
+				return rtrn;
+			newp->data = elementp;
+			newp->next = NULL;
+			//if it isnt the first thing reassign the back thing in list to point to new one and reassign back pointer
+			if(ptr->front != NULL){
+				ptr->back->next = newp;
+				ptr->back = newp;
+			}else{
+				//set front and back to new thing
+				ptr->front = newp;
+				ptr->back = newp;			 
+			}
+			rtrn = 0;
 		}
 	}
-	
 	return rtrn;
 }
 
 
-
-
 /*get the first element from the queue, remove it from the queue, free memory to its spot in the queue but not the actual data*/
 void* qget(queue_t *qp){
-	void *rtrn = NULL;
-
+	void *rtrn = NULL;	
 	if(qp!=NULL){
 		rq_t *ptr = (rq_t *) qp;
 		if(ptr->front != NULL){
 			ll_t *hold = NULL;
 			hold = ptr->front;
-			
-
 			if(ptr->front == ptr->back)
 				ptr->back = NULL;
-
 			ptr->front = hold->next;
 			rtrn = hold->data;
-
-
 			free(hold);
-
 		}else{
 			printf("queue is empty\n");
 		}
-
 	}
-	
 	return rtrn;
 }
 
 
-
 /*apply a function to every element in the queue*/
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
-	
 	if(qp!=NULL){
 		rq_t *ptr = (rq_t *) qp;
 		if(ptr->front!=NULL){
