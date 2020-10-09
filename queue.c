@@ -164,7 +164,7 @@ void* qsearch(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),cons
 			printf("Loop\n");
 			if(flag==true){
 				printf("Element Found!\n");
-				return incp;
+				return incp->data;
 			}
 		}
 	}

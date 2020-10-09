@@ -32,7 +32,7 @@ int main(void){
 	qput(q, p3);
 	
 	testp = qsearch(q,fn,p2);
-	print_node(testp);
+	print_node((void *)testp);
 	qclose(q);
 	
 	exit(EXIT_SUCCESS);
