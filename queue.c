@@ -184,7 +184,44 @@ void* qsearch(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),cons
 
 void* qremove(queue_t *qp,
 							bool (*searchfn)(void* elementp,const void* keyp),
-							const void* skeyp);
+							const void* skeyp){
+	rq_t *ptr=(rq_t*)qp;
+	ll_t *incp, *prev, *hold;
+	bool flag = false;
+	void * rtn = NULL;
+	int loop_count = 0;
+	hold = NULL;
+
+	if(ptr->front!=NULL){
+		incp = ptr->front;
+		while(flag == false){
+		
+
+			flag = searchfn(incp->data,skeyp);
+			printf("Loop\n");
+			if(flag==true){
+				printf("Element Found!\n");
+				rtn =  incp->data;
+				if(loop_count == 0){
+					ptr->front = incp->next;
+				}else{
+					prev->next = incp->next;
+				}
+				hold = incp;
+				free(hold);
+			}else{
+				prev = incp;
+				incp = incp->next;
+			}
+			loop_count = loop_count +1;
+		}
+
+	}else
+		printf("Empty List");
+	if(flag == 0)
+		printf("Element Not Found.\n");
+	return rtn;
+}
 
 
 /*combines q2 into the end of q1, then frees q2*/
