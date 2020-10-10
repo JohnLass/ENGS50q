@@ -16,6 +16,8 @@
 #include "queue.h"
 #include <stdbool.h>
 
+
+
 int main(void){
 	queue_t *q;
 	car_t *p1 = makecar("car1", 28.3, 2800);
@@ -24,16 +26,40 @@ int main(void){
 	bool (*fn)(void *cp, const void* keyp);
 	car_t *testp;
 	
-	fn = searchfn;
+	fn = search_plate;
 	q = qopen();
 	
 	qput(q, p1);
 	qput(q, p2);
 	qput(q, p3);
 	
-	testp = qsearch(q,fn,p2);
+	testp =(car_t *) qsearch(q,fn,(void *) p2);
 	print_node((void *)testp);
+
+
+	if(!(checkcar(testp, "car2", 128.3, 800))){
+		printf("Failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	fn = search_year;
+	testp = (car_t *) qsearch(q,fn,(void *) p3);
+
+	if(!(checkcar(testp, "car3", 8.3, 22800))){
+		printf("Failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	fn = search_price;
+	testp = (car_t *) qsearch(q,fn,(void *) p1);
+
+	if(!(checkcar(testp, "car1", 28.3, 2800))){
+		printf("Failed\n");
+		exit(EXIT_FAILURE);
+	}
+
 	qclose(q);
+
 	
 	exit(EXIT_SUCCESS);
 }

@@ -136,15 +136,20 @@ void* qget(queue_t *qp){
 /*apply a function to every element in the queue*/
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
 	if(qp!=NULL){
-		rq_t *ptr = (rq_t *) qp;
-		if(ptr->front!=NULL){
-			ll_t *incp = NULL;
-			for(incp=ptr->front; incp!=NULL; incp=incp->next){
-				fn(incp->data);
+		if(fn!=NULL){
+			rq_t *ptr = (rq_t *) qp;
+			if(ptr->front!=NULL){
+				ll_t *incp = NULL;
+				for(incp=ptr->front; incp!=NULL; incp=incp->next){
+					fn(incp->data);
+				}
+			}
+			else{
+				printf("Queue is empty!\n");	
 			}
 		}
 		else{
-			printf("Queue is empty!\n");	
+			printf("Passed Null function!\n");
 		}
 	}
 		else{

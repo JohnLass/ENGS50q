@@ -43,4 +43,8 @@ void make_list(void);
 
 bool checkcar(car_t *cp, char *platep, double price, int year);
 
-bool searchfn (void* elementp, const void* keyp);
+bool search_plate (void* elementp, const void* keyp);
+
+bool search_year (void* elementp, const void* keyp);
+
+bool search_price (void* elementp, const void* keyp);

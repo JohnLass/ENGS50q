@@ -26,7 +26,7 @@ car_t *makecar(char *platep,double price,int year) {
 
 void print_node(void *vp){
 	if(vp == NULL){
-		printf("passed a null pointer\n");
+		printf("Passed a null pointer\n");
 	}else{
 		car_t *cp = (car_t *) vp;
 		printf("The car's licence plate is: %s\n", cp->plate);
@@ -57,11 +57,44 @@ bool checkcar(car_t *cp, char *platep, double price, int year){
 }
 
 	
-bool searchfn (void* elementp, const void* keyp) {
+bool search_plate (void* elementp, const void* keyp) {
 	int ret;
-	if(elementp!=NULL)
-		ret = strcmp(elementp,keyp);
-	if(ret!=0)
-		return false;
-	return true;
+	if(elementp!=NULL){
+		car_t *car1 = (car_t *) elementp;
+		if(keyp != NULL){
+			car_t *key = (car_t *) keyp;
+			ret = strcmp(car1->plate,key->plate);
+			if(ret!=0)
+				return false;
+			return true;
+		}
+	}
+	return false;	
 }
+
+bool search_year (void* elementp, const void* keyp) {
+	bool ret = false;
+	if(elementp!=NULL){
+		car_t *car1 = (car_t *) elementp;
+		if(keyp != NULL){
+			car_t *key = (car_t *) keyp;
+			if(car1->year == key->year)
+				ret = true;	
+		}
+	}
+	return ret;	
+}
+
+bool search_price (void* elementp, const void* keyp) {
+	bool ret = false;
+	if(elementp!=NULL){
+		car_t *car1 = (car_t *) elementp;
+		if(keyp != NULL){
+			car_t *key = (car_t *) keyp;
+			if(car1->price == key->price)
+				ret = true;	
+		}
+	}
+	return ret;	
+}
+
