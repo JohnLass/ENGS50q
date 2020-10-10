@@ -34,7 +34,7 @@ int main(void){
 	qput(q, p2);
 	qput(q, p3);
 	
-	testp = qremove(q,fn,(void *) p1);
+	testp = qremove(q,fn,(void *) "car1");
 	
 
 	if(!(checkcar(testp, "car1", 28.3, 2800))){

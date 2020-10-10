@@ -21,10 +21,13 @@
 int main(void){
 	queue_t *q;
 	car_t *p1 = makecar("car1", 28.3, 2800);
-	car_t *p2 = makecar("car2", 128.3, 800);
-	car_t *p3 = makecar("car3", 8.3, 22800);
+	car_t *p2 = makecar("car2", 28.3, 800);
+	car_t *p3 = makecar("car3", 28.3, 22800);
 	bool (*fn)(void *cp, const void* keyp);
 	car_t *testp;
+	int yr = 22800;
+	int yr2 = 2800;
+	double pricec = 28.3;
 	
 	fn = search_plate;
 	q = qopen();
@@ -32,29 +35,31 @@ int main(void){
 	qput(q, p1);
 	qput(q, p2);
 	qput(q, p3);
-	
-	testp =(car_t *) qsearch(q,fn,(void *) p2);
+	/*
+	testp =(car_t *) qsearch(q,fn,(void *) "car2");
 	print_node((void *)testp);
 
 
 	if(!(checkcar(testp, "car2", 128.3, 800))){
-		printf("Failed\n");
+		printf("Failed1\n");
 		exit(EXIT_FAILURE);
 	}
 
 	fn = search_year;
-	testp = (car_t *) qsearch(q,fn,(void *) p3);
-
+	testp = (car_t *) qsearch(q,fn, &yr);
+	print_node((void *)testp);
+	
 	if(!(checkcar(testp, "car3", 8.3, 22800))){
-		printf("Failed\n");
+		printf("Failed2\n");
 		exit(EXIT_FAILURE);
 	}
-
+*/
 	fn = search_price;
-	testp = (car_t *) qsearch(q,fn,(void *) p1);
-
+	testp = (car_t *) qsearch(q,fn, &pricec);
+	print_node((void *)testp);
+	
 	if(!(checkcar(testp, "car1", 28.3, 2800))){
-		printf("Failed\n");
+		printf("Failed3\n");
 		exit(EXIT_FAILURE);
 	}
 

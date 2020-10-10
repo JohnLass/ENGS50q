@@ -10,7 +10,6 @@
  */
 
 #include "queue.h"
-#include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -163,6 +162,7 @@ void* qsearch(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),cons
 	rq_t *ptr=(rq_t*)qp;
 	ll_t *incp;
 	bool flag;
+
 	if(ptr->front!=NULL){
 		for(incp=ptr->front;incp!=NULL;incp=incp->next){
 			flag = searchfn(incp->data,skeyp);
@@ -194,9 +194,7 @@ void* qremove(queue_t *qp,
 
 	if(ptr->front!=NULL){
 		incp = ptr->front;
-		while(flag == false){
-		
-
+		while(flag == false){		
 			flag = searchfn(incp->data,skeyp);
 			printf("Loop\n");
 			if(flag==true){
@@ -231,10 +229,13 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		rq_t *ptr2 = (rq_t *) q2p;
 		if(ptr2->back != NULL){
 			ptr1->back->next = ptr2->front;
+			ptr1->back = ptr2->back;
+			ptr2->front = NULL;
+			ptr2->back = NULL;
 		}else{
 			printf("Second queue is empty!\n");
 		}
-		free(ptr2);
+		qclose(ptr2);
 	}else{
 		printf("Passed null pointer!\n");
 	}
