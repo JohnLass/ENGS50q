@@ -1,6 +1,7 @@
 CFLAGS=-Wall -pedantic -std=c11 -g
 
-all: mkemptyq.test first_queue.test queue_put.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test concat1.test apply3.test
+all: mkemptyq.test first_queue.test queue_put.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test concat1.test apply3.test remove1.test remove2.test remove3.test remove4.test null.test concat2.test
+
 
 %.o:  %.test.c listfun.h list.h queue.h
 			gcc $(CFLAGS) -c $<  
@@ -47,11 +48,29 @@ qsearch1.test:	qsearch1.test.o	queue.o list.o listfun.o
 qsearch2.test:	qsearch2.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o qsearch2.test.o -o qsearch2.test
 
+remove1.test:	remove1.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o remove1.test.o -o remove1.test
+
+remove2.test:	remove2.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o remove2.test.o -o remove2.test
+
+remove3.test:	remove3.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o remove3.test.o -o remove3.test
+
+remove4.test:	remove4.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o remove4.test.o -o remove4.test
+
+null.test:	null.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o null.test.o -o null.test
+
 concat1.test:	concat1.test.o	queue.o list.o listfun.o
 							gcc $(CFLAGS) queue.o list.o listfun.o concat1.test.o -o concat1.test
 
+concat2.test:	concat2.test.o	queue.o list.o listfun.o
+							gcc $(CFLAGS) queue.o list.o listfun.o concat2.test.o -o concat2.test
+
 
 clean:
-				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test
+				rm -f *.o mkemptyq.test first_queue.test queue_put.test put1.testl debugq.test mult.test put2.test get1.test mult2.test put3.test apply1.test apply2.test qsearch1.test qsearch2.test remove1.test remove2.test remove3.test concat1.test remove4.test null.test
 
 
