@@ -159,65 +159,71 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 
 
 void* qsearch(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
-	rq_t *ptr=(rq_t*)qp;
-	ll_t *incp;
-	bool flag;
+	if(qp != NULL){
+		rq_t *ptr=(rq_t*)qp;
+		ll_t *incp;
+		bool flag;
 
-	if(ptr->front!=NULL){
-		for(incp=ptr->front;incp!=NULL;incp=incp->next){
-			flag = searchfn(incp->data,skeyp);
-			printf("Loop\n");
-			if(flag==true){
-				printf("Element Found!\n");
-				return incp->data;
+		if(ptr->front!=NULL){
+			for(incp=ptr->front;incp!=NULL;incp=incp->next){
+				flag = searchfn(incp->data,skeyp);
+				printf("Loop\n");
+				if(flag==true){
+					printf("Element Found!\n");
+					return incp->data;
+				}
 			}
 		}
+		if(ptr->front==NULL)
+			printf("Empty List");
+		printf("Element Not Found.\n");
+		return NULL;
 	}
-	if(ptr->front==NULL)
-		printf("Empty List");
-	printf("Element Not Found.\n");
+	printf("Invalid arg\n");
 	return NULL;
 }
-
 
 
 
 void* qremove(queue_t *qp,
 							bool (*searchfn)(void* elementp,const void* keyp),
 							const void* skeyp){
-	rq_t *ptr=(rq_t*)qp;
-	ll_t *incp, *prev, *hold;
-	bool flag = false;
 	void * rtn = NULL;
-	int loop_count = 0;
-	hold = NULL;
-
-	if(ptr->front!=NULL){
-		incp = ptr->front;
-		while(flag == false){		
-			flag = searchfn(incp->data,skeyp);
-			printf("Loop\n");
-			if(flag==true){
-				printf("Element Found!\n");
-				rtn =  incp->data;
-				if(loop_count == 0){
-					ptr->front = incp->next;
+	if(qp != NULL){
+		rq_t *ptr=(rq_t*)qp;
+		ll_t *incp, *prev, *hold;
+		bool flag = false;
+		int loop_count = 0;
+		hold = NULL;
+		
+		if(ptr->front!=NULL){
+			incp = ptr->front;
+			while(flag == false && incp != NULL){		
+				flag = searchfn(incp->data,skeyp);
+				printf("Loop\n");
+				if(flag==true){
+					printf("Element Found!\n");
+					rtn =  incp->data;
+					if(loop_count == 0){
+						ptr->front = incp->next;
+					}else{
+						prev->next = incp->next;
+					}
+					hold = incp;
+					
+					free(hold);
 				}else{
-					prev->next = incp->next;
+					prev = incp;
+					incp = incp->next;
 				}
-				hold = incp;
-				free(hold);
-			}else{
-				prev = incp;
-				incp = incp->next;
+				loop_count = loop_count +1;
 			}
-			loop_count = loop_count +1;
-		}
-
-	}else
-		printf("Empty List");
-	if(flag == 0)
-		printf("Element Not Found.\n");
+			
+		}else
+			printf("Empty List");
+		if(flag == 0)
+			printf("Element Not Found.\n");
+	}
 	return rtn;
 }
 
@@ -228,10 +234,14 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		rq_t *ptr1 = (rq_t *) q1p;
 		rq_t *ptr2 = (rq_t *) q2p;
 		if(ptr2->back != NULL){
-			ptr1->back->next = ptr2->front;
+			if(ptr1->front == NULL){
+				ptr1->front = ptr2->front;
+			}else{
+				ptr1->back->next = ptr2->front;
+			}
 			ptr1->back = ptr2->back;
-			ptr2->front = NULL;
 			ptr2->back = NULL;
+			ptr2->front = NULL;
 		}else{
 			printf("Second queue is empty!\n");
 		}
